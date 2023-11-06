@@ -1,26 +1,31 @@
-let num = 266219
-let stirngNum = String(num).split("") 
-// Преобразовали тип данных Number в String.С помощью метода Split разбили строку на подстроки и вернули массив.  
+'use strict'
 
-for(let i = 0 ; i < stirngNum.length; i++ ){
-if(stirngNum[i] !== Number){
-    stirngNum[i] = Number(stirngNum[i])
-} 
-//С помощью данного цикла преобразовали массив состоящий из строк в массив состоящий из чисел.
+//Задача №1 
+
+let lang = prompt("На каком языке вывести дни недели 'ru' или 'eng'")
+let rusDayWeek = "Понедельник,вторник,среда,четверг,пятница,суббота,воскресенье"
+let engDayWeek = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday"
+
+if(lang === "ru"){
+    console.log(rusDayWeek)
+} else{
+    console.log(engDayWeek)
+}
+
+switch (lang){ 
+    case "ru": console.log(rusDayWeek);
+    break;
+    case "eng": console.log(engDayWeek)
+    break;
 
 }
- let count = 1
- for(let i = 0; i < stirngNum.length; i++ ){
-count *= stirngNum[i]
-}
-console.log(count)
-//С помощью данного цикла перебрали массив чисел и перемножили их,записав в переменную count
 
-count = count ** 3
-console.log(count)
-// Возвели count в степень 3
+let arrDayWeek = [[rusDayWeek],[engDayWeek]]
+console.log(lang === "ru" ? arrDayWeek[0] : arrDayWeek[1])
 
-num  = String(count) //Преобразовали переменную в строку
-num = num.slice(0,2) // При помощи метода Slice удалили из строки ненужные значения
 
-console.log(+num) // С помощью унарного оператора "+" преобразовали строку в число :)
+//Задача №2
+
+let namePerson = prompt('Введите имя')
+let role = namePerson === "Артем" ? 'Директор' : namePerson ==='Александр' ? "Преподаватель" : "Студент"
+console.log(role)
