@@ -6,10 +6,12 @@ const changingString = function(changing){
     let result = '' 
     let count = 0
     
-    if(!isNaN(changing) && changing !== String()){
+    if(typeof changing !== 'string'){
      return alert('Передайте строку!')
+    }else{
+        result = changing.trim()
     }
-     result = changing.trim()
+
     for(let i = 0; result.length > i; i++){
      count = i
     }
@@ -20,4 +22,4 @@ const changingString = function(changing){
     }
     
     
-   console.log(changingString(''))
+   console.log(changingString(1))
