@@ -1,25 +1,18 @@
 'use strict'
 // Задача №1 
 
-const changingString = function(changing){
+let screenPrice
 
-    let result = '' 
-    let count = 0
-    
-    if(typeof changing !== 'string'){
-     return alert('Передайте строку!')
-    }else{
-        result = changing.trim()
-    }
+screenPrice = prompt('Какая сумма?')
 
-    for(let i = 0; result.length > i; i++){
-     count = i
-    }
-    if(count > 30){
-     result =  result.slice(0,31) + '...'
-    }
-    return result
-    }
-    
-    
-   console.log(changingString(1))
+const isNumber = function (num) {
+    let regexp = /\s/g
+    return !regexp.test(num) && !isNaN(parseFloat(num) && isFinite(num))
+}
+
+while(!isNumber(screenPrice)){
+    screenPrice  = prompt('Какая сумма?')
+}
+
+
+console.log(screenPrice)
