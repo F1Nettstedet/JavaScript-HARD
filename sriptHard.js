@@ -1,138 +1,81 @@
-'use srtict'
-//Задача №1 Строка №67  способ решения через Reduce
+const timer = document.getElementById('timer1')
+const timer2 = document.getElementById('timer2')
 
-const appData = {
 
-    title: '',
-    screens: [],
-    screenPrice: 0,
-    adaptive: true,
-    rollback: 50,
-    allServicePrices: 0,
-    fullPrice: 0,
-    servicePercentPrice: 0,
-    services: {},
+const getDateInSrting = function () {
+    let getFullDate = " "
+    const now = new Date()
+    const daysWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+    const months = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря']
+    let dayWeek = now.getDay()
+    let dayMonth = now.getDate()
+    let month = now.getMonth()
+    let year = now.getFullYear()
 
-    isString: function(str){ 
-        return isNaN(str)
-    },
+    let hours = now.getHours()
+    let minutes = now.getMinutes() + " минут"
+    let seconds = now.getSeconds() + " секунд"
+    let arrTime = [[2, 3, 4, 22, 23, 24, 32, 33, 34, 42, 43, 44, 52, 53, 54],[1, 21, 31, 41, 51]]
 
-    isNumber: function (num) {
-        return !isNaN(parseFloat(num) && isFinite(num))
-    },
+    dayWeek = daysWeek[dayWeek]
+    month = months[month]
 
-    asking: function () {
-        let name = ''
-        let price = 0
 
-        do {
-            appData.title = prompt('Как называется ваш проект?', 'Калькулятор верстки')
-        } while(this.isNumber(this.title))
+    if (hours == 1 || hours == 21) {
+        hours += ' Час'
+    } else if (hours > 1 && hours < 4 || hours >= 22) {
+        hours += ' Часа'
+    } else {
+        hours += ' Часов'
+    }
 
-        for (let i = 0; i < 2; i++) {
-            do {
-                name = prompt('Какие типы экранов нужно разработать?', 'Пример: Простые, Сложные, Интерактивные')
-            } while(this.isNumber(name))
 
-            do {
-                price = prompt('Сколько будет стоить данная работа?')
-            }
-            while (!appData.isNumber(price))
-
-            appData.screens.push({ id: i, name: name, price: price})
+    for (let key in arrTime[0]) {
+        if (arrTime[0][key] === parseFloat(seconds)) {
+            seconds += 'ы'
 
         }
-
-        for (let i = 0; i < 2; i++) {
-            let name = ''
-            let price = 0
-
-            do {
-                name = prompt('Какой допольнительный тип услуги нужен ?')
-            } while(this.isNumber(name))
-            
-
-            do {
-                price = prompt('Сколько это будет стоить?')
-            } while (!appData.isNumber(price))
-
-            appData.services[name + i] = +price   // по-другому что-то пока не дошло как  сделать так,чтобы при передаче в объект одинакового ключа не было перезаписи =(
+        if (arrTime[1][key] === parseFloat(seconds)) {
+            seconds += 'а'
         }
+    }
 
-        appData.adaptive = confirm('Нужен ли адаптив на сайте?')
-    },
-
-    addPrices: function () {
-        
-        appData.screenPrice  = this.screens.reduce(function(acc,i){
-            return acc +  (+i.price)
-
-        },0)
-        
-
-        for (key in appData.services) {
-            appData.allServicePrices += this.services[key]
+    for (let key in arrTime[0]) {
+        if (arrTime[0][key] === parseFloat(minutes)) {
+            minutes += 'ы'
         }
-
-    },
-
-
-    getFullPrice: function () {
-        appData.fullPrice = (appData.screenPrice + appData.allServicePrices)
-    },
-
-    getServicePercentPrices: function () {
-        appData.servicePercentPrice = (appData.fullPrice - (appData.fullPrice * (appData.rollback / 100)))
-
-    },
-
-    getTitle: function () {
-        appData.title = (appData.title.trim()[0].toUpperCase() + appData.title.slice(1).toLowerCase())
-    },
-
-    getRollbackMessage: function (price) {
-        if (price >= 30000) {
-            return 'Даем скидку в 10%'
-        }
-
-        if (price >= 15000 && price < 30000) {
-            return 'Даем скидку в 5%'
-        }
-
-        if (price < 15000 && price >= 0) {
-            return 'Скидка не предусмотрена'
-        } else {
-            return 'Что-то пошло не так'
-        }
-
-    },
-    logger: function () {
-        console.log(appData.screenPrice)
-        console.log(this.fullPrice)
-        console.log(this.servicePercentPrice)
-        console.log(appData.screens)
-        console.log(appData.services)
-        for (key in appData) {
-            if (typeof appData[key] == 'function') {
-                console.log('Метод: ' + key)
-            } else {
-                console.log('Свойство: ' + key)
-            }
+        if (arrTime[1][key] === parseFloat(minutes)) {
+            minutes += 'а'
         }
 
 
-    },
-
-    start: function () {
-        appData.asking()
-        appData.addPrices()
-        appData.getFullPrice()
-        appData.getServicePercentPrices()
-        appData.getTitle()
-        appData.logger()
-        
-    },
-
+    }
+    getFullDate =  `Сегодня ${dayWeek}, ${dayMonth} ${month} ${year} года ${hours} ${minutes} ${seconds}`
+    return getFullDate
 }
 
-appData.start()
+
+
+
+setInterval(() => {
+    timer.innerHTML = getDateInSrting()
+}, 1000)
+
+
+const getDateInNumber = function(){ 
+    
+    const now = new Date()
+    let dayMonth = now.getDate().toString().padStart(2,'0')
+    let month = now.getMonth().toString().padStart(2,'0')
+    let year = now.getFullYear()
+
+    let hours = now.getHours().toString().padStart(2,'0')
+    let minutes = now.getMinutes().toString().padStart(2,'0')
+    let seconds = now.getSeconds().toString().padStart(2,'0')
+
+    return(`${dayMonth}.${month}.${year} - ${hours}:${minutes}:${seconds}`)
+
+}
+setInterval(() => {
+    timer2.innerHTML = getDateInNumber()
+}, 1000)
